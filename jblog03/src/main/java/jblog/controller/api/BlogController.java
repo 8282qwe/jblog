@@ -6,6 +6,7 @@ import org.springframework.web.bind.annotation.*;
 
 @RestController("BlogApiController")
 @RequestMapping("/api/blog")
+//@Authorization(role = "ADMIN")
 public class BlogController {
     private final CategoryService categoryService;
 
