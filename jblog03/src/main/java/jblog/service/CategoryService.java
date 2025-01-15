@@ -28,9 +28,13 @@ public class CategoryService {
     }
 
     @Transactional
-    public void deleteCategory(int categoryId) {
+    public boolean deleteCategory(int categoryId) {
+        if (categoryRepository.existCategoryById(categoryId)) {
+            return false;
+        }
         postRepository.deletePostById(categoryId);
         categoryRepository.deleteCategoryById(categoryId);
+        return true;
     }
 
     public void insertCategory(String id, String categoryName, String description) {

@@ -29,6 +29,12 @@
         where id = #{category_id};
     </delete>
 
+    <select id="existDefaultCategory" parameterType="integer" resultType="boolean">
+        select if(name = '미분류',true,false)
+        from category
+        where id = #{id};
+    </select>
+
     <insert id="insertCategory" parameterType="categoryvo">
         insert into category (id, name, description, blog_id)
         values (null,#{name},#{description},#{blogId});

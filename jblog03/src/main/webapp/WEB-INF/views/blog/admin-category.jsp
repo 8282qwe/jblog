@@ -41,7 +41,9 @@
                     url: '${pageContext.request.contextPath}/api/blog/category/delete/' + index,
                     method: 'GET',
                     success: function (response) {
-                        row.remove(); // 성공 시 해당 행 삭제
+                        if (response.status === 200) {
+                            row.remove(); // 성공 시 해당 행 삭제
+                        }
                     },
                     error: function (xhr, status, error) {
                         console.error('Error deleting category:', error);

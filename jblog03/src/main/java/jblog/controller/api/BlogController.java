@@ -15,7 +15,9 @@ public class BlogController {
 
     @GetMapping({"/category/delete/{id}"})
     public ResponseEntity<String> adminCategoryDelete(@PathVariable("id") int categoryId) {
-        categoryService.deleteCategory(categoryId);
+        if (!categoryService.deleteCategory(categoryId)){
+            return ResponseEntity.status(400).build();
+        }
         return ResponseEntity.ok("success");
     }
 

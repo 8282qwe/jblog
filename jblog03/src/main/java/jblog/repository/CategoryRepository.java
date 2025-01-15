@@ -34,4 +34,8 @@ public class CategoryRepository {
     public void insertCategory(CategoryVo categoryVo) {
         sqlSession.insert("category.insertCategory", categoryVo);
     }
+
+    public boolean existCategoryById(int categoryId) {
+        return sqlSession.selectOne("category.existCategoryById", categoryId);
+    }
 }
