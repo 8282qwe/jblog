@@ -24,6 +24,15 @@
 				<input type="radio" name="which" value="blog-user"> <label>블로거</label>
 			</fieldset>
 		</form>
+		<div id="wrapper">
+			<div id="content">
+				<ul class="blog-list">
+					<c:forEach items="${blogs}" var="blog">
+						<li><a href="${pageContext.request.contextPath}/${blog.userId}"><span>${blog.title}</span></a></li>
+					</c:forEach>
+				</ul>
+			</div>
+		</div>
 	</div>
 </body>
 </html>
