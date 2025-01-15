@@ -13,7 +13,7 @@
     <select id="findAllBySpec" parameterType="postdtoforselect" resultType="postvo">
         select p.id as id,p.title as title,p.contents as contents,p.reg_date as reg_date,p.category_id as categoryId
         from post p, (select id from category where blog_id = #{userId}) c
-        where c.id = p.id
+        where c.id = p.category_id
         <if test='categoryId != -1'>
         and category_id = #{categoryId}
         </if>
