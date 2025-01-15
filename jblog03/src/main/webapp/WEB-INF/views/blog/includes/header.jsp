@@ -3,7 +3,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
 <%@ page contentType="text/html;charset=UTF-8" language="java" pageEncoding="UTF-8" %>
 <div id="header">
-  <h1>${blogTitleFactory.blogTitle[requestScope.path].title}</h1>
+  <h1><a href="${pageContext.request.contextPath}/${path}" style="text-decoration: none; color: white">${blogTitleFactory.blogTitle[requestScope.path].title}</a></h1>
   <ul>
     <c:if test="${sessionScope.get('user') == null}">
       <li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
