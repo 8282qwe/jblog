@@ -40,9 +40,15 @@
                 $.ajax({
                     url: '${pageContext.request.contextPath}/api/blog/category/delete/' + index,
                     method: 'GET',
-                    success: function (response) {
-                        if (response.status === 200) {
-                            row.remove(); // 성공 시 해당 행 삭제
+                    complete: function (data) {
+                        switch (data.status) {
+                            case 200:
+                                row.remove();
+                                break;
+                            case 501:
+                                console.log(data);
+                                alert(data.responseText);
+                                window.location.reload();
                         }
                     },
                     error: function (xhr, status, error) {

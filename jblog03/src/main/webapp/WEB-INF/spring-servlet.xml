@@ -20,7 +20,15 @@
     <!-- mvc url-resource mapping -->
     <mvc:resources mapping="/assets/upload-images/**" location="file:/Users/jangwoo/Desktop/[62]2024.11.포스코DX09/jblog/mysite-upload/" />
 
-    <mvc:annotation-driven/>
+    <mvc:annotation-driven>
+        <mvc:message-converters>
+            <bean class="org.springframework.http.converter.StringHttpMessageConverter">
+                <property name="defaultCharset">
+                    <value>UTF-8</value>
+                </property>
+            </bean>
+        </mvc:message-converters>
+    </mvc:annotation-driven>
 
     <!-- 서블릿 컨테이너의 디폴트 서블릿 위임 핸들러 -->
     <mvc:default-servlet-handler/>

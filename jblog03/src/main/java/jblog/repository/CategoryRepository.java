@@ -36,6 +36,6 @@ public class CategoryRepository {
     }
 
     public boolean existCategoryById(int categoryId) {
-        return sqlSession.selectOne("category.existCategoryById", categoryId);
+        return sqlSession.selectOne("category.existDefaultCategory", categoryId);
     }
 }
