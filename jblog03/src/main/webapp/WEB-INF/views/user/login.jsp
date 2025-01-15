@@ -1,6 +1,7 @@
 <%@ taglib uri="http://java.sun.com/jsp/jstl/core" prefix="c"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/fmt" prefix="fmt"%>
 <%@ taglib uri="http://java.sun.com/jsp/jstl/functions" prefix="fn"%>
+<%@ taglib prefix="form" uri="http://www.springframework.org/tags/form" %>
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <!doctype html>
 <html>
@@ -14,11 +15,14 @@
 	<div class="center-content">
 		<h1 class="logo">JBlog</h1>
 		<c:import url="/WEB-INF/views/includes/main_header.jsp"/>
-		<form class="login-form" method="get" action="${pageContext.request.contextPath}/user/auth">
-      		<label>아이디</label> <input type="text" name="id">
+		<form:form class="login-form" method="post" action="${pageContext.request.contextPath}/user/auth">
+      		<label>아이디</label> <input type="text" name="id" value="${id}"/>
       		<label>패스워드</label> <input type="text" name="password">
+			<c:if test="${'fail'.equals(result)}">
+				<p style="color: red">로그인에 실패하셨습니다.</p>
+			</c:if>
       		<input type="submit" value="로그인">
-		</form>
+		</form:form>
 	</div>
 </body>
 </html>

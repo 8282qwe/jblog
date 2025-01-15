@@ -3,13 +3,13 @@ package jblog.controller;
 import jblog.annotation.Authorization;
 import jblog.dto.PostDtoForSelect;
 import jblog.dto.PostRequestDto;
+import jblog.event.BlogTitleFactory;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
 import jblog.service.FileUploadService;
 import jblog.service.PostService;
 import jblog.vo.BlogVo;
 import jblog.vo.PostVo;
-import jblog.vo.UserVo;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.ApplicationContext;
 import org.springframework.context.annotation.Bean;
@@ -25,12 +25,13 @@ import java.util.Optional;
 import java.util.concurrent.ConcurrentHashMap;
 
 @Controller
-@RequestMapping("/{id:(?!assets).*}")
+@RequestMapping("/{id:(?:(?!assets|user).)*}")
 public class BlogController {
     private final PostService postService;
     private final CategoryService categoryService;
     private final BlogService blogService;
     private final FileUploadService fileUploadService;
+    private final BlogTitleFactory blogTitleFactory;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -45,11 +46,12 @@ public class BlogController {
         return blogTitle;
     }
 
-    public BlogController(PostService postService, CategoryService categoryService, BlogService blogService, FileUploadService fileUploadService) {
-        this.postService = postService;
-        this.categoryService = categoryService;
-        this.blogService = blogService;
+    public BlogController(BlogTitleFactory blogTitleFactory, FileUploadService fileUploadService, BlogService blogService, CategoryService categoryService, PostService postService) {
+        this.blogTitleFactory = blogTitleFactory;
         this.fileUploadService = fileUploadService;
+        this.blogService = blogService;
+        this.categoryService = categoryService;
+        this.postService = postService;
     }
 
     @Authorization(role = "ANY")
@@ -57,8 +59,11 @@ public class BlogController {
     public String blogView(@PathVariable("id") String id
             , @PathVariable(name = "categoryId", required = false) Optional<Integer> categoryId
             , @PathVariable(name = "postId", required = false) Optional<Integer> postId
-            , @SessionAttribute(name = "user", required = false) Optional<UserVo> userVo
             , Model model) {
+
+        if (!blogTitleFactory.getBlogTitle().containsKey(id)) {
+            return "redirect:/";
+        }
 
         PostDtoForSelect post = new PostDtoForSelect();
         post.setUserId(id);
@@ -107,8 +112,8 @@ public class BlogController {
     @Authorization(role = "ADMIN")
     @PostMapping({"/admin/write"})
     public String adminWriteAction(@PathVariable("id") String id,
-                                 @ModelAttribute PostRequestDto postRequestDto,
-                                 Model model) {
+                                   @ModelAttribute PostRequestDto postRequestDto,
+                                   Model model) {
 
         model.addAttribute("categories", categoryService.findAllByBlogId(id));
         if (postService.insertBoard(postRequestDto)) return "redirect:/" + id;
