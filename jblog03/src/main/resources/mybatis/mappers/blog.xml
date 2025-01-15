@@ -1,0 +1,23 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN" "http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+
+<mapper namespace="blog">
+    <insert id="makeInitBlog" parameterType="string">
+        insert into blog
+        values (#{user_id},'','');
+    </insert>
+
+    <select id="findAll" resultType="blogvo">
+        select user_id userId, title, profile
+        from blog;
+    </select>
+
+    <update id="updateBlog" parameterType="blogvo">
+        update blog
+        <set>
+            <if test="title != null"> title = #{title},</if>
+            <if test="profile != null"> profile = #{profile},</if>
+        </set>
+        where user_id = #{userId};
+    </update>
+</mapper>
