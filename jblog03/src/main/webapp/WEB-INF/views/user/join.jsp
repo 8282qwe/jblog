@@ -23,7 +23,6 @@
                     type: "GET",
                     dataType: "json",
                     complete: function (data) {
-                        console.log(data);
                         switch (data.status) {
                             case 200:
                                 $("#img-checkemail").show();
