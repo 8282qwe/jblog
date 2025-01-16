@@ -8,6 +8,14 @@ public class BlogVo {
 
     private String profile;
 
+    public BlogVo() {
+    }
+
+    public BlogVo(String userId, String title) {
+        this.userId = userId;
+        this.title = title;
+    }
+
     public String getUserId() {
         return userId;
     }

@@ -4,8 +4,8 @@
 <%@ page language="java" contentType="text/html; charset=utf-8" pageEncoding="utf-8"%>
 <ul class="menu">
     <c:if test="${sessionScope.get('user') == null}">
-        <li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
-        <li><a href="${pageContext.request.contextPath}/join">회원가입</a></li>
+        <li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
+        <li><a href="${pageContext.request.contextPath}/user/join">회원가입</a></li>
     </c:if>
     <c:if test="${sessionScope.get('user') != null}">
         <li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>

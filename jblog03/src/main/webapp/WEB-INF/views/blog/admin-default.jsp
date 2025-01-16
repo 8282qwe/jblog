@@ -37,10 +37,7 @@
 				</form>
 			</div>
 		</div>
-		<div id="footer">
-			<p>
-				<strong>Spring 이야기</strong> is powered by JBlog (c)2016
-			</p>
-		</div>	</div>
+		<c:import url="includes/footer.jsp"/>
+	</div>
 </body>
 </html>

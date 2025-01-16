@@ -23,9 +23,7 @@ public class SignFormValidator implements Validator {
     public void validate(Object object, Errors errors) {
         UserVo userVo = (UserVo) object;
 
-        System.out.println(userVo.getId());
-
-        if (userService.checkUserById(userVo.getId())) {
+        if (!userService.checkUserById(userVo.getId())) {
             errors.rejectValue("id","invalid.id",new Object[]{userVo.getId()},"이미 사용중인 이메일입니다.");
         }
     }

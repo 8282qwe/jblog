@@ -15,7 +15,7 @@ public class BlogRepository {
     }
 
     public boolean makeInitBlog(String userId) {
-        return sqlSession.insert("blog.makeInitBlog", userId) >= 1;
+        return sqlSession.insert("blog.makeInitBlog", new BlogVo(userId,userId+"'s 블로그")) >= 1;
     }
 
     public List<BlogVo> findAll() {

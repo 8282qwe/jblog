@@ -43,10 +43,11 @@ public class GlobalExceptionHandler {
         } else {
             if (e instanceof NoHandlerFoundException || e instanceof NoResourceFoundException) {
                 request.getRequestDispatcher("/WEB-INF/views/errors/404.jsp").forward(request, response);
-            } else {
-                request.setAttribute("errors", sw.toString());
-                request.getRequestDispatcher("/WEB-INF/views/errors/500.jsp").forward(request, response);
             }
+//            else {
+//                request.setAttribute("errors", sw.toString());
+//                request.getRequestDispatcher("/WEB-INF/views/errors/500.jsp").forward(request, response);
+//            }
         }
     }
 }
