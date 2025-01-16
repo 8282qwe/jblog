@@ -14,8 +14,9 @@
             $("#add_button").click((e) => {
                 e.preventDefault();
                 let name = $("#category_name").val();
-                let desc = $("#category_desc").val();
-                if (name === "" || desc === "") {
+                // let desc = $("#category_desc").val();
+                if (name === "") {
+                    alert("카테고리명이 비어있을 수 없습니다.")
                     return;
                 }
 
@@ -35,7 +36,7 @@
             $('.del_button').click(function () {
                 let row = $(this).closest('tr');
                 let index = row.data('index');
-                let categoryId = row.find('td:eq(1)').text(); // 카테고리 이름을 ID로 사용
+                // let categoryId = row.find('td:eq(1)').text(); // 카테고리 이름을 ID로 사용
 
                 $.ajax({
                     url: '${pageContext.request.contextPath}/api/blog/category/delete/' + index,

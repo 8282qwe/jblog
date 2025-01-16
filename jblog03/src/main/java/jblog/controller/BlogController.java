@@ -3,7 +3,7 @@ package jblog.controller;
 import jblog.annotation.Authorization;
 import jblog.dto.PostDtoForSelect;
 import jblog.dto.PostRequestDto;
-import jblog.event.BlogTitleFactory;
+import jblog.exception.BlogNotFoundException;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
 import jblog.service.FileUploadService;
@@ -31,7 +31,6 @@ public class BlogController {
     private final CategoryService categoryService;
     private final BlogService blogService;
     private final FileUploadService fileUploadService;
-    private final BlogTitleFactory blogTitleFactory;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -46,12 +45,11 @@ public class BlogController {
         return blogTitle;
     }
 
-    public BlogController(BlogTitleFactory blogTitleFactory, FileUploadService fileUploadService, BlogService blogService, CategoryService categoryService, PostService postService) {
-        this.blogTitleFactory = blogTitleFactory;
-        this.fileUploadService = fileUploadService;
-        this.blogService = blogService;
-        this.categoryService = categoryService;
+    public BlogController(PostService postService, CategoryService categoryService, BlogService blogService, FileUploadService fileUploadService) {
         this.postService = postService;
+        this.categoryService = categoryService;
+        this.blogService = blogService;
+        this.fileUploadService = fileUploadService;
     }
 
     @Authorization(role = "ANY")
@@ -59,11 +57,9 @@ public class BlogController {
     public String blogView(@PathVariable("id") String id
             , @PathVariable(name = "categoryId", required = false) Optional<Integer> categoryId
             , @PathVariable(name = "postId", required = false) Optional<Integer> postId
-            , Model model) {
+            , Model model)  {
 
-        if (!blogTitleFactory.getBlogTitle().containsKey(id)) {
-            return "redirect:/";
-        }
+        blogService.checkBlog(id);
 
         PostDtoForSelect post = new PostDtoForSelect();
         post.setUserId(id);

@@ -1,6 +1,8 @@
 package jblog.service;
 
 import jblog.event.BeanRefreshEvent;
+import jblog.event.BlogTitleFactory;
+import jblog.exception.BlogNotFoundException;
 import jblog.repository.BlogRepository;
 import jblog.vo.BlogVo;
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import java.util.Map;
 @Service
 public class BlogService {
     private final BlogRepository blogRepository;
+    private final BlogTitleFactory blogTitleFactory;
 
     @Autowired
     private ApplicationContext applicationContext;
@@ -21,8 +24,9 @@ public class BlogService {
     @Autowired
     private ApplicationEventPublisher eventPublisher;
 
-    public BlogService(BlogRepository blogRepository) {
+    public BlogService(BlogRepository blogRepository, BlogTitleFactory blogTitleFactory) {
         this.blogRepository = blogRepository;
+        this.blogTitleFactory = blogTitleFactory;
     }
 
     public List<BlogVo> findAll() {
@@ -46,5 +50,11 @@ public class BlogService {
         eventPublisher.publishEvent(new BeanRefreshEvent("blogTitle", newBlogVo));
 
         blogRepository.updateBlog(newBlogVo);
+    }
+
+    public void checkBlog(String id) {
+        if (!blogTitleFactory.getBlogTitle().containsKey(id)) {
+            throw new BlogNotFoundException("blog does not exist");
+        }
     }
 }
