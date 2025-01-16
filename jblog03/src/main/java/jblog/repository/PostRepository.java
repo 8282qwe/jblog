@@ -26,4 +26,8 @@ public class PostRepository {
     public boolean insertPost(PostVo postVo) {
         return sqlSession.insert("post.insertPost", postVo) >= 1;
     }
+
+    public boolean existDeletePostByCategoryId(int categoryId) {
+        return sqlSession.selectOne("post.existDeletePostByCategoryId", categoryId);
+    }
 }

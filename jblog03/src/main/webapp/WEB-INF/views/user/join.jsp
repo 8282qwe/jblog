@@ -14,7 +14,7 @@
         $(function () {
             $("#btn-checkemail").click(() => {
                 let id = $("#blog-id").val();
-                if (id === "") {
+                if (id === "" ) {
                     return;
                 }
 
@@ -40,6 +40,8 @@
                 $("#img-checkemail").hide();
                 $("#btn-checkemail").show();
             })
+
+
         });
     </script>
 </head>

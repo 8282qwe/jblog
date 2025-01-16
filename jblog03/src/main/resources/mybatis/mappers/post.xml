@@ -30,4 +30,10 @@
         insert into post (title, contents, reg_date, category_id)
         values (#{title},#{contents},now(),#{categoryId});
     </insert>
+
+    <select id="existDeletePostByCategoryId" parameterType="integer" resultType="boolean">
+        select if(count(*) >= 1, 0, 1)
+        from post
+        where category_id = #{category_id};
+    </select>
 </mapper>

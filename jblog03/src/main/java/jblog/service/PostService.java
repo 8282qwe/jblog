@@ -33,4 +33,8 @@ public class PostService {
     public boolean insertBoard(PostRequestDto dto) {
         return postRepository.insertPost(new PostVo(dto.getTitle(), dto.getContent(), dto.getCategory()));
     }
+
+    public boolean existByCategoryId(int categoryId) {
+        return postRepository.existDeletePostByCategoryId(categoryId);
+    }
 }

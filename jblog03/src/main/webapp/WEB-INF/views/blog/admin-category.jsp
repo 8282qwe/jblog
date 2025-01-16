@@ -14,7 +14,7 @@
             $("#add_button").click((e) => {
                 e.preventDefault();
                 let name = $("#category_name").val();
-                // let desc = $("#category_desc").val();
+                let desc = $("#category_desc").val();
                 if (name === "") {
                     alert("카테고리명이 비어있을 수 없습니다.")
                     return;
@@ -46,10 +46,10 @@
                             case 200:
                                 row.remove();
                                 break;
-                            case 501:
-                                console.log(data);
+                            default:
                                 alert(data.responseText);
                                 window.location.reload();
+                                break;
                         }
                     },
                     error: function (xhr, status, error) {
