@@ -4,13 +4,10 @@ import jakarta.servlet.http.HttpServletRequest;
 import jakarta.servlet.http.HttpServletResponse;
 import jakarta.servlet.http.HttpSession;
 import jblog.annotation.Authorization;
-import jblog.vo.BlogVo;
 import jblog.vo.UserVo;
 import org.springframework.context.ApplicationContext;
 import org.springframework.web.method.HandlerMethod;
 import org.springframework.web.servlet.HandlerInterceptor;
-
-import java.util.Map;
 
 public class AuthorizationInterceptor implements HandlerInterceptor {
     private final ApplicationContext applicationContext;
@@ -29,7 +26,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
         if (annotation == null) annotation = handlerMethod.getBeanType().getAnnotation(Authorization.class);
 
         if (annotation == null) return true;
-        Map<String, BlogVo> blogVoMap = (Map<String, BlogVo>) applicationContext.getBean("blogTitle");
+//        Map<String, BlogVo> blogVoMap = (Map<String, BlogVo>) applicationContext.getBean("blogTitle");
 
 
         String role = annotation.role();
@@ -47,7 +44,7 @@ public class AuthorizationInterceptor implements HandlerInterceptor {
                 return true;
             }
             else {
-                response.sendRedirect(request.getContextPath() + "/login");
+                response.sendRedirect(request.getContextPath() + "/user/login");
                 return false;
             }
         }

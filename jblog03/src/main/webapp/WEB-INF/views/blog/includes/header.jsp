@@ -6,7 +6,7 @@
   <h1><a href="${pageContext.request.contextPath}/${path}" style="text-decoration: none; color: white">${blogTitleFactory.blogTitle[requestScope.path].title}</a></h1>
   <ul>
     <c:if test="${sessionScope.get('user') == null}">
-      <li><a href="${pageContext.request.contextPath}/login">로그인</a></li>
+      <li><a href="${pageContext.request.contextPath}/user/login">로그인</a></li>
     </c:if>
     <c:if test="${sessionScope.get('user') != null}">
       <li><a href="${pageContext.request.contextPath}/user/logout">로그아웃</a></li>
