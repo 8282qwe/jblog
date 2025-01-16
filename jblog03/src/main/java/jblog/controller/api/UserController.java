@@ -18,6 +18,6 @@ public class UserController {
 
     @GetMapping("/{id}")
     public ResponseEntity<String> findById(@PathVariable("id") String id) {
-        return userService.checkUserById(id) ? ResponseEntity.status(210).build() : ResponseEntity.ok().build();
+        return userService.checkUserById(id) ? ResponseEntity.status(210).body("error") : ResponseEntity.ok().build();
     }
 }

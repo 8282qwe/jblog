@@ -3,7 +3,6 @@ package jblog.controller;
 import jblog.annotation.Authorization;
 import jblog.dto.PostDtoForSelect;
 import jblog.dto.PostRequestDto;
-import jblog.exception.BlogNotFoundException;
 import jblog.service.BlogService;
 import jblog.service.CategoryService;
 import jblog.service.FileUploadService;

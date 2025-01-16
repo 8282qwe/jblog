@@ -7,8 +7,8 @@
         values (#{id},#{name},#{password});
     </insert>
 
-    <select id="findByUserId" parameterType="string" resultType="uservo">
-        select id,name
+    <select id="existByUserId" parameterType="string" resultType="boolean">
+        select if(count(*) >= 1,0,1)
         from user
         where id=#{user_id};
     </select>

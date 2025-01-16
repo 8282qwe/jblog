@@ -17,8 +17,8 @@ public class UserRepository {
         return sqlSession.insert("user.insertUser", userVo) >= 1;
     }
 
-    public UserVo findByUserId(String userId) {
-        return sqlSession.selectOne("user.findByUserId", userId);
+    public boolean existByUserId(String userId) {
+        return sqlSession.selectOne("user.existByUserId", userId);
     }
 
     public UserVo findByIdAndPassword(UserVo userVo) {

@@ -26,7 +26,7 @@ public class UserService {
     }
 
     public boolean checkUserById(String userId) {
-        return userRepository.findByUserId(userId) != null;
+        return userRepository.existByUserId(userId);
     }
 
     public UserVo getUserByIdAndPassword(UserVo userVo) {
